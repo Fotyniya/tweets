@@ -8,9 +8,16 @@ axios.defaults.baseURL = 'https://642db56c66a20ec9cea46bfd.mockapi.io/api/v1';
 export const UserList = () => {
 
     const [isLoading, setIsLoading] = useState('false');
-    const [error, setError] = useState('null');
+    //const [error, setError] = useState('null');
     const [page, setPage] = useState(0);
     const [users, setUsers] = useState([]);
+   
+    useEffect(() => {
+        const users = JSON.parse(localStorage.getItem('users'));
+        if (users) {
+            setUsers(users);
+        }
+      }, []); 
 
 useEffect(()=>{
     async function fetchData() {
@@ -18,9 +25,10 @@ useEffect(()=>{
         try {
             const response = await axios.get(`/users`);
             console.log(response)
-            setUsers(prevState => [...prevState, ...response.data])
-        }catch(error) {
-            setError(error)
+            setUsers(prevState => [...prevState, ...response.data]);
+            
+        } catch ( error ) {
+            //setError(error)
             console.log (error)
         } finally {
             setIsLoading(false); 
@@ -28,6 +36,11 @@ useEffect(()=>{
     };
     fetchData(); 
 },[])
+
+useEffect(() => {
+    localStorage.setItem('users', JSON.stringify(users));
+    
+  }, [users]);
 
 const pagination = () => {
     return  users.slice(0, page*3+3) 
@@ -44,7 +57,9 @@ const pagination = () => {
                 </li>
                 )}
             </ul>
-            <button onClick={() => setPage(prevState => prevState + 1)} >LOAD MORE</button>
+            <button onClick={() => {
+                setPage(prevState => prevState + 1);
+                }} >LOAD MORE</button>
             </>
         )
     }

@@ -6,7 +6,7 @@ import {UserCard} from '../userCard';
 axios.defaults.baseURL = 'https://642db56c66a20ec9cea46bfd.mockapi.io/api/v1';
 
 export const UserList = () => {
-
+    
     const [isLoading, setIsLoading] = useState('false');
     //const [error, setError] = useState('null');
     const [page, setPage] = useState(0);

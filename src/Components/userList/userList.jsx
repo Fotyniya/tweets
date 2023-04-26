@@ -2,22 +2,22 @@ import { useEffect, useState } from 'react';
 
 import { nanoid } from 'nanoid';
 import axios from 'axios';
-import {UserCard} from '../userCard';
+import {UserCard} from '../userCard/userCard';
+import { Button, List } from './userList.styled';
 axios.defaults.baseURL = 'https://642db56c66a20ec9cea46bfd.mockapi.io/api/v1';
 
 export const UserList = () => {
     
     const [isLoading, setIsLoading] = useState('false');
-    //const [error, setError] = useState('null');
     const [page, setPage] = useState(0);
     const [users, setUsers] = useState([]);
    
     useEffect(() => {
-        const users = JSON.parse(localStorage.getItem('users'));
-        if (users) {
-            setUsers(users);
+        const data = JSON.parse(localStorage.getItem('users'));
+        if (data) {
+            setUsers(data);
         }
-      }, []); 
+    }, []); 
 
 useEffect(()=>{
     async function fetchData() {
@@ -28,7 +28,6 @@ useEffect(()=>{
             setUsers(prevState => [...prevState, ...response.data]);
             
         } catch ( error ) {
-            //setError(error)
             console.log (error)
         } finally {
             setIsLoading(false); 
@@ -49,17 +48,16 @@ const pagination = () => {
         return (
             <>
             {isLoading && <span>Loading...</span>}
-            <ul style={{display: 'flex',
-                flexDirection: 'row', flexWrap: 'wrap', gap: 6, listStyle: 'none'}} >
+            <List >
                 {pagination().map(item =>  
                  <li key = {nanoid()}>
                     <UserCard item = {item} />
                 </li>
                 )}
-            </ul>
-            <button onClick={() => {
+            </List>
+            <Button onClick={() => {
                 setPage(prevState => prevState + 1);
-                }} >LOAD MORE</button>
+                }} >LOAD MORE</Button>
             </>
         )
     }

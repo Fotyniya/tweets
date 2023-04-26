@@ -1,6 +1,6 @@
 import { GlobalStyle } from "./GlobalStyle";
 
-import {UserList} from "./Components/userList";
+import {UserList} from "./Components/userList/userList";
 
 export default function App() {
   

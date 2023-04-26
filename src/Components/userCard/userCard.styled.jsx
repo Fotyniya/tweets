@@ -26,6 +26,9 @@ export const Button = styled.button`
    top: 374px;
    box-shadow: 0px 3.43693px 3.43693px rgba(0, 0, 0, 0.25);
    border-radius: 10.3108px;
+   font-weight: 600;
+   font-size: 18px;
+   line-height: 22px;
 `
 export const Rectangle = styled.div`
    position: absolute;
@@ -109,4 +112,5 @@ height: 62px;
 left: 9.48px;
 top: 9.42px;
 border-radius: 50%;
+box-shadow: 0px -3.19582px 4.39163px #AE7BE3, inset 0px 4.39163px 3.29372px #000000;
 `
